@@ -12,36 +12,39 @@ class ReposTableViewController: UITableViewController {
 
     let store = ReposDataStore.sharedInstance
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.title = "Repositories"
-        
-        store.getRepositoriesWithCompletion { success in
-            if success {
-                NSOperationQueue.mainQueue().addOperationWithBlock({ 
-                    self.tableView.reloadData()
-                })
-            } else {
-                print("ERROR: Unable to get repositories for table view")
-            }
-        }
-
-    }
+    // MARK: - Table
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return store.repositories.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! ReposTableViewCell
+        
         cell.repo = store.repositories[indexPath.row]
+        cell.textLabel?.text = cell.repo?.fullName
+        
         return cell
     }
 
     @IBAction func logoutButtonTapped(sender: AnyObject) {
-        
+        //
     }
-
+    
+    // MARK: - View
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.title = "Repositories"
+        
+        store.getRepositoriesWithCompletion { success in
+            if success {
+                NSOperationQueue.mainQueue().addOperationWithBlock({
+                    self.tableView.reloadData()
+                })
+            } else {
+                print("ERROR: Unable to get repositories for table view")
+            }
+        }
+    }
 }

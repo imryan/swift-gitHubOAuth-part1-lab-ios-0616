@@ -14,21 +14,27 @@ import Locksmith
 class GitHubAPIClient {
     
     // MARK: Path Router
+    
     enum URLRouter {
-        static let repo = ""
-        static let token = ""
-        static let oauth = ""
+        static let repo = "https://api.github.com/repositories?client_id=\(Secrets.clientId)&client_secret=\(Secrets.clientSecret)"
+        static let token = "https://github.com/login/oauth/access_token"
+        static let oauth = "https://github.com/login/oauth/authorize?client_id=\(Secrets.clientId)&scope=repo"
         
-        static func starred(repoName repo: String) -> String? {return nil}
+        static func starred(repoName repo: String) -> String? {
+            let starredURL = "https://api.github.com/user/starred/\(repo)?client_id=\(Secrets.clientId)&client_secret=\(Secrets.clientSecret)&access_token="
+            
+            // Add access token to starredURL string and return it
+            
+            return starredURL
+        }
     }
-
 }
 
 // MARK: Repositories
+
 extension GitHubAPIClient {
     
     class func getRepositoriesWithCompletion(completionHandler: (JSON?) -> Void) {
-        
         Alamofire.request(.GET, URLRouter.repo)
             .validate()
             .responseJSON(completionHandler: { response in
@@ -42,32 +48,27 @@ extension GitHubAPIClient {
                     completionHandler(nil)
                 }
             })
-        
     }
-    
 }
-
 
 // MARK: OAuth
+
 extension GitHubAPIClient {
     
-    
     class func hasToken() -> Bool {
-        
         return false
     }
-    
 }
 
-
 // MARK: Activity
+
 extension GitHubAPIClient {
     
     class func checkIfRepositoryIsStarred(fullName: String, completionHandler: (Bool?) -> ()) {
-        
         guard let urlString = URLRouter.starred(repoName: fullName) else {
-            print("ERROR: Unable to get url path for starred status")
+            print("ERROR: Unable to get URL path for starred status")
             completionHandler(nil)
+            
             return
         }
         
@@ -85,17 +86,14 @@ extension GitHubAPIClient {
                     print("ERROR: \(error.localizedDescription)")
                     completionHandler(nil)
                 }
-                
-                
             })
-        
     }
     
     class func starRepository(fullName: String, completionHandler: (Bool) -> ()) {
-        
         guard let urlString = URLRouter.starred(repoName: fullName) else {
-            print("ERROR: Unable to get url path for starred status")
+            print("ERROR: Unable to get URL path for starred status")
             completionHandler(false)
+            
             return
         }
         
@@ -110,11 +108,9 @@ extension GitHubAPIClient {
                     completionHandler(false)
                 }
             })
-        
     }
     
     class func unStarRepository(fullName: String, completionHandler: (Bool) -> ()) {
-        
         guard let urlString = URLRouter.starred(repoName: fullName) else {
             print("ERROR: Unable to get url path for starred status")
             completionHandler(false)
@@ -132,8 +128,6 @@ extension GitHubAPIClient {
                     completionHandler(false)
                 }
             })
-        
     }
-    
 }
 

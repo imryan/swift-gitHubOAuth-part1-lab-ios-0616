@@ -12,22 +12,22 @@ class AppController: UIViewController {
     
     @IBOutlet weak var containerView: UIView!
     var currentViewController: UIViewController!
-
+    
+    // MARK: - View
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadInitialViewController()
         addNotificationObservers()
-
     }
-    
 }
 
-// MARK: Set Up
+// MARK: Setup
+
 extension AppController {
     
     private func loadInitialViewController() {
-        
         if GitHubAPIClient.hasToken() {
             self.currentViewController = loadViewControllerWith(StoryboardID.reposTVC)
             addCurrentViewController(self.currentViewController)
@@ -35,23 +35,19 @@ extension AppController {
             self.currentViewController = loadViewControllerWith(StoryboardID.loginVC)
             addCurrentViewController(self.currentViewController)
         }
-        
     }
     
     private func addNotificationObservers() {
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppController.switchViewController(_:)), name: Notification.closeLoginVC, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppController.switchViewController(_:)), name: Notification.closeReposTVC, object: nil)
-        
     }
-    
 }
 
 // MARK: View Controller Handling
-extension AppController {
 
+extension AppController {
+    
     private func loadViewControllerWith(storyboardID: String) -> UIViewController {
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         switch storyboardID {
@@ -64,22 +60,17 @@ extension AppController {
         default:
             fatalError("ERROR: Unable to find controller with storyboard id: \(storyboardID)")
         }
-        
-        
     }
     
     private func addCurrentViewController(controller: UIViewController) {
-        
         self.addChildViewController(controller)
         self.containerView.addSubview(controller.view)
         controller.view.frame = self.containerView.bounds
         controller.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         controller.didMoveToParentViewController(self)
-        
     }
     
     func switchViewController(notification: NSNotification) {
-        
         switch notification.name {
         case Notification.closeLoginVC:
             switchToViewControllerWith(StoryboardID.reposTVC)
@@ -88,11 +79,9 @@ extension AppController {
         default:
             fatalError("ERROR: Unable to match notification name")
         }
-        
     }
     
     private func switchToViewControllerWith(storyboardID: String) {
-        
         let oldViewController = self.currentViewController
         oldViewController.willMoveToParentViewController(nil)
         
@@ -103,7 +92,6 @@ extension AppController {
         self.currentViewController.view.alpha = 0
         
         UIView.animateWithDuration(0.5, animations: {
-            
             self.currentViewController.view.alpha = 1
             oldViewController.view.alpha = 0
             
@@ -112,10 +100,5 @@ extension AppController {
             oldViewController.removeFromParentViewController()
             self.currentViewController.didMoveToParentViewController(self)
         }
-        
     }
-    
 }
-
-
-

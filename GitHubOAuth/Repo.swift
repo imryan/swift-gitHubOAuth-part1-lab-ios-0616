@@ -9,7 +9,6 @@
 import Foundation
 import SwiftyJSON
 
-
 class Repo {
     
     var id: String
@@ -30,5 +29,4 @@ class Repo {
         self.fullName = fullName
         self.htmlURL = htmlURL
     }
-    
 }

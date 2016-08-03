@@ -22,19 +22,17 @@ class ReposTableViewCell: UITableViewCell {
                 checkStarredStatusOf(repo)
             }
         }
-        
     }
     
     // MARK: Initialization
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         commonInit()
-        
     }
     
     private func commonInit() {
-        
         self.selectionStyle = .None
         
         self.starButton = UIButton()
@@ -48,27 +46,23 @@ class ReposTableViewCell: UITableViewCell {
         self.starButton.widthAnchor.constraintEqualToAnchor(self.heightAnchor, multiplier: 0.5).active = true
         self.starButton.trailingAnchor.constraintEqualToAnchor(self.trailingAnchor, constant: -20).active = true
         self.starButton.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor).active = true
-        
     }
     
-    // MARK: Button action
+    // MARK: Button Action
+    
     func starButtonPressed(sender: UIButton) {
-        
         self.starButton.userInteractionEnabled = false
         self.starButton.selected = true
         
-        
         if let repo = self.repo {
-            
             store.toggleStarStatusFor(repo: repo, toggleCompletion: { isStarred in
-                
                 guard let isStarred = isStarred else {
                     self.setImagesForError(self.starButton)
                     self.starButton.selected = false
                     return
                 }
                 
-                NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                NSOperationQueue.mainQueue().addOperationWithBlock({
                     if isStarred {
                         self.setImagesForStarred(self.starButton)
                     } else {
@@ -79,23 +73,19 @@ class ReposTableViewCell: UITableViewCell {
                 })
                 
             })
-            
         }
-        
     }
     
-    // MARK: Repo dependencies
+    // MARK: Repo Dependencies
+    
     private func updateTextLabelWith(text: String) {
         self.textLabel?.text = text
     }
     
     private func checkStarredStatusOf(repo: Repo) {
-        
         GitHubAPIClient.checkIfRepositoryIsStarred(repo.fullName, completionHandler: { isStarred in
-            
             if let isStarred = isStarred {
-                
-                NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                NSOperationQueue.mainQueue().addOperationWithBlock({
                     self.starButton.hidden = false
                     
                     if isStarred {
@@ -105,19 +95,18 @@ class ReposTableViewCell: UITableViewCell {
                         })
                     } else {
                         self.setImagesForUnstarred(self.starButton)
+                        
                         UIView.animateWithDuration(0.5, animations: {
                             self.starButton.alpha = 1
                         })
                     }
                 })
-                
             }
-            
         })
-        
     }
     
-    // MARK: Button image handling
+    // MARK: Button Image Handling
+    
     private func setImagesForStarred(button: UIButton) {
         self.starButton.setImage(UIImage(named: "starred"), forState: .Normal)
         self.starButton.setImage(UIImage(named: "starredSelected"), forState: .Selected)
@@ -133,4 +122,3 @@ class ReposTableViewCell: UITableViewCell {
         self.starButton.setImage(UIImage(named: "error"), forState: .Selected)
     }
 }
-

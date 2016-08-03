@@ -13,12 +13,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
         return true
     }
-
-
+    
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        let value = options["UIApplicationOpenURLOptionsSourceApplicationKey"] as! String
+        
+        if value == "com.apple.SafariViewService" {
+            NSNotificationCenter.defaultCenter().postNotificationName(Notification.closeSafariVC, object: url.absoluteString)
+            return true
+        }
+        
+        return false
+    }
 }
 

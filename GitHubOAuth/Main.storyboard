@@ -21,17 +21,17 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zu6-p7-3rs" userLabel="Background View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mf5-SP-JcR" userLabel="Image Background View">
                                 <rect key="frame" x="75" y="141" width="225" height="225"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Mf5-SP-JcR" secondAttribute="height" multiplier="1:1" id="Koq-lu-weR"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="30J-Ph-KK5">
-                                <rect key="frame" x="120" y="165" width="135" height="177"/>
+                                <rect key="frame" x="120" y="165" width="135" height="178"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sgc-MQ-oJd">
                                         <rect key="frame" x="0.0" y="0.0" width="135" height="135"/>
@@ -40,10 +40,10 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="evm-7P-95X">
-                                        <rect key="frame" x="37" y="145" width="61" height="32"/>
-                                        <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="20"/>
+                                        <rect key="frame" x="45" y="145" width="45" height="33"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                         <state key="normal" title="Login">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="0.84749461206896548" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="loginButtonTapped:" destination="x3H-Og-Eiw" eventType="touchUpInside" id="L5G-XC-Q7F"/>
@@ -81,16 +81,16 @@
         <scene sceneID="wwN-p2-Fgd">
             <objects>
                 <tableViewController storyboardIdentifier="reposTVC" id="gcQ-NZ-0v9" customClass="ReposTableViewController" customModule="GitHubOAuth" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ohg-7x-e9G">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ohg-7x-e9G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" id="31q-XH-YnZ" customClass="ReposTableViewCell" customModule="GitHubOAuth" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="31q-XH-YnZ" id="wvU-TO-djP">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -102,6 +102,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Vy7-XE-kCz">
                         <barButtonItem key="rightBarButtonItem" title="Log Out" id="QM6-Jv-o2z">
+                            <color key="tintColor" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="logoutButtonTapped:" destination="gcQ-NZ-0v9" id="hd9-ou-vN1"/>
                             </connections>

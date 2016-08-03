@@ -11,11 +11,8 @@ import Foundation
 extension NSURL {
     
     func getQueryItemValue(named name: String) -> String? {
-        
         let components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false)
         let query = components?.queryItems
         return query?.filter({$0.name == name}).first?.value
-        
     }
-    
 }
